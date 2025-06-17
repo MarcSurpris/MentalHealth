@@ -1,37 +1,131 @@
+/* Reset default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Base styles */
 body {
-    font-family: Arial, sans-serif;
-    background: #eef2f3;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8; /* Soft light blue background */
+    color: #333;
+    line-height: 1.6;
     display: flex;
     justify-content: center;
-    padding-top: 50px;
-}
-
-.chat-container {
-    background: white;
+    align-items: center;
+    min-height: 100vh;
     padding: 20px;
+}
+
+/* Main container */
+.container {
+    max-width: 600px;
+    width: 100%;
+    background-color: #ffffff;
     border-radius: 10px;
-    width: 400px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 0 auto;
 }
 
-#chat-box {
-    border: 1px solid #ccc;
-    height: 300px;
-    overflow-y: scroll;
+/* Heading */
+h1 {
+    text-align: center;
+    color: #2c5282; /* Calming dark blue */
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+/* Textarea */
+#message {
+    width: 100%;
+    min-height: 100px;
     padding: 10px;
-    margin-bottom: 10px;
-    background: #f9f9f9;
+    border: 2px solid #90cdf4; /* Soft blue border */
+    border-radius: 5px;
+    font-size: 1rem;
+    resize: vertical; /* Allow vertical resizing only */
+    margin-bottom: 15px;
+    transition: border-color 0.3s ease;
 }
 
-.user, .bot {
-    margin-bottom: 10px;
+#message:focus {
+    outline: none;
+    border-color: #2c5282; /* Darker blue on focus */
 }
 
-.user {
-    text-align: right;
-    color: #007bff;
+/* Button */
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #2c5282;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.bot {
-    color: #444;
+button:hover {
+    background-color: #2b6cb0; /* Slightly lighter blue on hover */
+}
+
+button:focus {
+    outline: 2px solid #90cdf4;
+    outline-offset: 2px;
+}
+
+/* Response area */
+#response {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #edf2f7; /* Light gray-blue for response */
+    border-radius: 5px;
+    min-height: 50px;
+    font-size: 1rem;
+    color: #2d3748;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    #message {
+        font-size: 0.9rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
+
+    #response {
+        font-size: 0.9rem;
+    }
+}
+
+/* Accessibility enhancements */
+:focus {
+    outline: 2px solid #2c5282;
+    outline-offset: 2px;
+}
+
+/* Error state (optional, if you add error handling in JS) */
+.error {
+    color: #e53e3e; /* Red for errors */
+    border-color: #e53e3e;
+}
+
+/* Placeholder styling */
+#message::placeholder {
+    color: #a0aec0; /* Light gray for placeholder */
+    opacity: 1;
 }

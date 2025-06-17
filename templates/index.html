@@ -1,38 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Mental Health Chatbot</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Assistant</title>
     <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-    <div class="chat-container">
-        <h2>How are you feeling today?</h2>
-        <div id="chat-box"></div>
-        <input type="text" id="user-input" placeholder="Type your thoughts...">
-        <button onclick="sendMessage()">Send</button>
-    </div>
-
     <script>
-        function sendMessage() {
-            const input = document.getElementById("user-input");
-            const message = input.value;
-            if (!message) return;
-
-            const chatBox = document.getElementById("chat-box");
-            chatBox.innerHTML += `<div class="user">You: ${message}</div>`;
-            input.value = "";
-
-            fetch("/chat", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: message })
-            })
-            .then(res => res.json())
-            .then(data => {
-                chatBox.innerHTML += `<div class="bot">Bot: ${data.response}</div>`;
-                chatBox.scrollTop = chatBox.scrollHeight;
-            });
+        async function sendMessage() {
+            const message = document.getElementById("message").value;
+            const responseDiv = document.getElementById("response");
+            try {
+                const res = await fetch("/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message })
+                });
+                const data = await res.json();
+                responseDiv.innerText = data.response || data.error;
+                if (data.error) responseDiv.classList.add("error");
+                else responseDiv.classList.remove("error");
+            } catch (error) {
+                responseDiv.innerText = "Error: Could not connect to server.";
+                responseDiv.classList.add("error");
+            }
         }
     </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Mental Health Assistant</h1>
+        <textarea id="message" placeholder="Type your message..."></textarea>
+        <button onclick="sendMessage()">Send</button>
+        <div id="response"></div>
+    </div>
 </body>
 </html>
